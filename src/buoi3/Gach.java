@@ -26,6 +26,15 @@ public class Gach {
 		this.giaBan = gia;
 	}
 	
+	public Gach(Gach G) {
+		this.maso = G.maso;
+		this.mau = G.mau;
+		this.soLuong = G.soLuong;
+		this.chieuDai = G.chieuDai;
+		this.chieuNgang = G.chieuNgang;
+		this.giaBan = G.giaBan;
+	}
+	
 	public void nhap()
 	{
 		System.out.println("Nhap ma so :");
@@ -55,18 +64,30 @@ public class Gach {
 	
 	public float giaBanLe()
 	{
-		return (float)(this.giaBan * (1.2));
+		return (float)(this.giaBan*1.2)/this.soLuong;
 	}
 	
 	public float dienTichNen()
 	{
-		return (float)(this.soLuong * this.chieuDai * this.chieuNgang);
+		return this.soLuong * this.chieuDai * this.chieuNgang;
 	}
 	
 	public int soLuongHop(int D, int N)
 	{
-		return (int)Math.ceil((D*N)/(this.chieuDai * this.chieuNgang));
+		int svn = N/this.chieuNgang;
+		if(N%this.chieuNgang != 0) {
+			svn++;
+		}
+		int svd = D/this.chieuDai;
+		if(D % this.chieuDai != 0)
+			svd++;
+		int slv = svn + svd;
+		int sh = slv/this.soLuong;
+		if(slv % this.soLuong != 0)
+			sh++;
+		return sh;
 	}
+	
 	
 	public long getGiaBan()
 	{
