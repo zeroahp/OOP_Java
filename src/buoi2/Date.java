@@ -3,85 +3,74 @@ package buoi2;
 import java.util.Scanner;
 
 public class Date {
-	private int day, month, year;
+	private int d,m,y;
 	Scanner sc = new Scanner(System.in);
 	
-	public Date() //ham mac nhien
-	{
-		day = month = year = 0;
-	}
-	
-	public Date(int d, int m, int y)//ham co doi so
-	{
-		this.day = d;
-		this.month = m;
-		this.year = y;
+	public Date (){
+		d = 15;
+		m = 2;
+		y = 2023;
 	}
 
-	//ham xay dung sao chep
-	public Date(Date d) {
-		this.day = d.day;
-		this.month = d.month;
-		this.year = d.year;
+	
+	public Date(int d1, int m1, int y1){
+		d = d1;
+		m = m1;
+		y = y1;
 	}
 	
-	public void printDay() {
-		System.out.println(this.day +"/"+ this.month + "/" + this.year);
+	public Date (Date date){
+		d = date.d;
+		m = date.m;
+		y = date.y;
+	}
+	public void in(){
+		System.out.println(d+"/"+m+"/"+y);
 	}
 	
-	public boolean hopLe(){		
-		int ngaytrongthang[] = {0, 31, 30, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-		if (this.month == 2)
-		{
-			if ( (this.year % 4 == 0 && this.year % 100 != 0) || this.year % 400 == 0) 
-				ngaytrongthang[2] = 29;
-			else ngaytrongthang[2] = 28;
-		}
-		if (this.day > 0 && this.day <= ngaytrongthang[this.month] && this.month > 0 && this.month < 13)
-			return true;
-		return false;
-		
+	public String toString(){
+		return d+"/"+m+"/"+y;
+	}
+	public boolean hopLe(){
+		int max[] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
+		if((y%4==0 && y%100 != 0) || (y%400 == 0))
+			max[2] = 29;
+		boolean h = false;
+		if(y>0 && m>=1 && m<13 && d >= 1 && d <= max[m])
+			h = true;
+		return h;
 	}
 	
-	public void nhapDay() {
+	public void nhap(){
 		do {
-			System.out.println("Nhap ngay : ");
-			this.day = sc.nextInt();
-			System.out.println("Nhap thang : ");
-			this.month = sc.nextInt();
-			System.out.println("Nhap nam : ");
-			this.year =sc.nextInt();
-			if(!hopLe())
-				System.out.println("Nhap sai moi nhap lai !");	
-		} while (!hopLe());
+			System.out.println("Nhap ngay thang nam :");
+			d = sc.nextInt();
+			m = sc.nextInt();
+			y = sc.nextInt();
+			if(!hopLe()) System.out.println("Nhap sai nhap lai !");
+		}while(!hopLe());
 	}
 	
-	public Date ngayHomSau()
-	{
-		Date res = new Date(this.day, this.month, this.year);
-		res.day ++;
-		if(!res.hopLe())
-		{
-			res.day = 1;
-			res.month ++;
-			if(!res.hopLe()) {
-				res.month = 1;
-				res.year ++;
+	public Date ngayHomSau(){
+		Date n = new Date(d,m,y);
+		n.d++;
+		if(!hopLe()){
+			n.d = 1;
+			n.m++;
+			if(!hopLe()){
+				n.m = 1;
+				n.y ++;
 			}
 		}
-		return res;
+		return n;
 	}
 	
-	public Date congNgay(int n)
-	{
-		Date cong = new Date(this.day, this.month, this.year);
-		
-		while(n!=0)
-		{
-			cong = cong.ngayHomSau();
-			n--;
+	public Date congNgay(int k){
+		Date n = new Date(d,m,y);
+		for(int i = 0; i < k ; i++){
+			n = n.ngayHomSau();
 		}
-		return cong;
+		return n;
 	}
 	
 }
