@@ -6,45 +6,35 @@ public class SDGach {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Nhap so luong vien gach :");
+		System.out.println("Nhap so luong vien gach");
 		int n = sc.nextInt();
-		Gach a[] = new Gach[n];
-		
+		Gach ds[] = new Gach[n];
 		int i;
-		for( i= 0; i < n ; i++) {
-			System.out.println("Nhap vien gach thu : " + (i+1));
-			a[i] = new Gach();
-			a[i].nhap();
+		for(i = 0; i < n ; i++){
+			ds[i] = new Gach();
+			System.out.println("Nhap vien gach thu "+(i+1));
+			ds[i].nhap();
 		}
+		for(Gach it:ds)
+			it.in();
 		
-		for(Gach it:a) {
-			it.hienThi();
-		}
-		
-
+		System.out.print("gach co chi phi lot thap nhat la ");
 		float min = Float.MAX_VALUE;
-		for(Gach g :a) {
-			if((g.getGiaBan()/g.dienTichNen()) < min) {
-				min = g.getGiaBan()/g.dienTichNen();
-			}
-		}
 		
-		System.out.println("Hop co chi phi thap nhat la:");
-		for(Gach g :a) {
-			if((g.getGiaBan()/g.dienTichNen()) == min) {
-				g.hienThi();
-			}
-		}
+		for(Gach g:ds)
+			if(g.getGia()/g.dienTich() < min)
+				min = g.getGia()/g.dienTich();
+		System.out.println("voi gia :"+min+" la:");
+		for(Gach g:ds)
+			if(g.getGia()/g.dienTich() == min)
+				g.in();
 		
-		System.out.println("Chi phi thap nhat la :"+ min);
+		System.out.println("Chi phi mua gach chieu ngang 5m, va chieu dai 20m");
+		for(i = 0; i < n ; i++){
+			System.out.println("Vien thu "+(i+1) + " la " + ds[i].soLuongHop(5, 20)*ds[i].getGia()+" dong");
+		}
 			
 		
-		System.out.println(" ");
-		for(i = 0; i<n ;i++) 
-		{
-			System.out.println("Chi phi mua gach thu "+(i+1)+" khi lot dien tich"	+ " chieu dai la 20cm va chieu ngang la 5cm la : "+(float)(a[i].getGiaBan()*a[i].soLuongHop(20, 5)));
-
-		}
 	}
 
 }
