@@ -3,57 +3,60 @@ package buoi2;
 import java.util.Scanner;
 
 public class Diem {
-	private int x, y;
+	private int x;
+	private int y;
+	
 	Scanner sc = new Scanner(System.in);
-	
 	public Diem(){
-		this.x = 0;
-		this.y = 0;
+		x = 0;
+		y = 0;
 	}
 	
-	public Diem(int x, int y)
-	{
-		this.x = x;
-		this.y = y;
+	public Diem(int x1, int y1){
+		x = x1;
+		y = y1;
 	}
 	
-	public void nhapDiem()
-	{
-		System.out.println("Nhap diem x : ");
-		this.x = sc.nextInt();
-		System.out.println("Nhap diem y : ");
-		this.y = sc.nextInt();
+	public Diem(Diem a){
+		x = a.x;
+		y = a.y;
 	}
 	
-	public void hienThi()
-	{
-		System.out.println("(" + this.x + ","+ this.y +")");
+	public void in(){
+		System.out.print("("+x+","+y+")");
+	}
+	public String toString(){
+		return "("+x+","+y+")";
 	}
 	
-	public void doiDiem(int dx, int dy)
-	{
-		this.x += dx;
-		this.y += dy;
+	public void nhap(){
+		System.out.println("Nhap diem x:");
+		x = sc.nextInt();
+		System.out.println("Nhap diem y:");
+		y = sc.nextInt();
 	}
 	
-	public int giaTriX()
-	{
-		return this.x;
+	public void tinhTien(int dx, int dy){
+		 x += dx;
+		 y += dy;
 	}
 	
-	public int giaTriY()
-	{
-		return this.y;
+	public int giaTriX(){
+		return x;
 	}
 	
-	public float khoangCach()
-	{
-		return (float)Math.sqrt(Math.pow(this.x, 2)+Math.pow(this.y, 2));
+	public int giaTriY(){
+		return y;
 	}
 	
-	public float khoangCachDiem(Diem d){
-		return (float)Math.sqrt(Math.pow(this.x - d.x, 2) + Math.pow(this.y - d.y, 2));
+	//khoang cach tu A-0
+	public float khoangCach(){
+		return (float)Math.sqrt((x*x)+(y*y));
 	}
-		
+	
+	//khoang cach A-B
+	public float khoangCach(Diem b){
+		return (float)Math.sqrt(Math.pow(x-b.x,2)+Math.pow(y-b.y,2));
+	}
 	
 }
