@@ -6,78 +6,74 @@ public class SDPhanSo {
 
 	public static void main(String[] args) {
 		PhanSo a = new PhanSo(3,7);
-		System.out.print("Phan so a la : ");
-		a.hienThi();
 		PhanSo b = new PhanSo(4,9);
-		System.out.print("Phan so b la : ");
-		b.hienThi();
+		System.out.println("Phan so a co dang :");
+		a.in();
+		System.out.println("Phan so b co dang :");
+		b.in();
 		
 		PhanSo x = new PhanSo();
 		PhanSo y = new PhanSo();
-		System.out.println("Nhap phan so x");
-		x.nhapPhanSo();
-		System.out.println("Nhap phan so y");
-		y.nhapPhanSo();
 		
-		System.out.print("Gia tri nghich dao cua phan so x la : ");
+		System.out.println("Tao phan so x");
+		x.nhap();
+		System.out.println("Tao phan so y");
+		y.nhap();
+		
+		System.out.print("Nghich dao cua phan so x la :");
 		x.nghichDao();
 		
-		System.out.print("Tong : x + y = ");
-		x.cong(y).hienThi();
+		System.out.print("Tong x + y = ");
+		x.cong(y).in();
 		
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Nhap so luong phan so : ");
+		System.out.println("Nhap so luong phan tu cho mang ");
 		int n = sc.nextInt();
+		PhanSo s[] = new PhanSo[n];
+		PhanSo tong = new PhanSo();
 		int i;
-		PhanSo c[] = new PhanSo[n];
-		PhanSo sum = new PhanSo();
+		for( i = 0 ; i<n ;i++){
+			System.out.println("Nhap phan so thu "+(i+1));
+			s[i] = new PhanSo();
+			s[i].nhap();
+		}
+		
+		// tinh tong n phan so
+		tong = s[0];
+		for( i = 1 ; i<s.length ;i++){
+			tong = tong.cong(s[i]);
+		}
+		System.out.print("Tong n phan so la " );
+		tong.in();
+		
+		//tim phan so lon nhat
 		PhanSo max = new PhanSo(Integer.MIN_VALUE, Integer.MAX_VALUE);
-		for(i = 0 ; i < n ; i++)
-		{
-			System.out.println("Nhap phan so "+(i+1));
-			c[i] = new PhanSo();
-			c[i].nhapPhanSo();	
+		for( i = 1 ; i<n ;i++){
+			if(s[i].lonHon(max))
+				max = s[i];
 		}
+		System.out.print("Phan so lon nhat trong mang la : ");
+		max.in();
 		
-		sum = c[0];
-		for(i = 1 ; i < n ; i++)
-		{
-			sum = sum.cong(c[i]);
-			if(c[i].lonHon(max)) max = c[i]; 
-			
-		}
-		System.out.print("Tong cua n phan so la : ");
-		sum.hienThi();
-		System.out.print("Phan so lon nhat la : ");
-		max.hienThi();
+		//sap xep tang
+		int j;
 		PhanSo temp = new PhanSo();
-		for (i = 0; i < n; i++)
-//			for (int j = i+1; j < n; j++)
-//				if (c[i].giaTriThuc() > c[j].giaTriThuc())
-//				{
-//					temp = c[i];
-//					c[i] = c[j];
-//					c[j] = temp;
-//				}
+		for( i = 0 ; i<n-1 ;i++){
+			for( j = i+1 ; j<n ;j++){
+				if(s[i].lonHon(s[j])){
+					temp = s[i];
+					s[i] = s[j];
+					s[j] = temp;
+				}
+			}
+		}		
 		
-		if(c[i].giaTriThuc() > c[i+1].giaTriThuc())
-		{
-			temp = c[i];
-		 	c[i] = c[i+1];
-		 	c[i+1] =temp;
-	 	}
-		
-		System.out.println("Sap xep tang : ");
-		for(PhanSo it:c)
-		{
-			it.hienThi();
-		}	
-		
-		
-			
-	}	
+		System.out.println("Mang sau khi sap xep tang :");
+		for(i = 0 ; i<n ;i++){
+			s[i].in();
+		}
 
-	
-
-
+	}
 }
+
+
